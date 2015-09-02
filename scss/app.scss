@@ -1,0 +1,113 @@
+
+
+@import "settings";
+@import "foundation";
+@import "vendors/include-media";
+@import "base/helpers";
+@import "base/mixins";
+
+$breakpoints: (
+  'xs-phone':rem-calc(320),
+  'phone':rem-calc(480),
+  'tablet':rem-calc(780),
+  'desktop':rem-calc(960),
+  'widescreen':rem-calc(1240)
+);
+
+// keywords
+$media-expressions: (
+  'screen': 'screen',
+  'print': 'print',
+  'handheld': 'handheld',
+  'landscape': '(orientation: landscape)',
+  'portrait': '(orientation: portrait)',
+  'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+  'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);
+// ligatured operators ≥ ≤
+
+ html{
+   font-size: 0.8125rem;
+}
+article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
+    display: block;
+}
+
+#header{
+  overflow: hidden;
+  ul{
+    @extend %listreset;
+    list-style: none;
+  }
+}
+
+#nav{
+  ul{
+    @extend %clearfix;
+    @extend %listreset;
+
+    li{
+      float: left;
+    }
+
+    a{
+      display: block;
+      padding: 8px 10px;
+    }
+  }
+}
+
+.cycle-gallery {
+  position: relative;
+
+  .mask {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slideset {
+    width: 99999px;
+    float: left;
+    img{
+      @include size(100%, auto);
+    //  @include size(100%, auto);
+    }
+  }
+
+  .slide {
+    float: left;
+  }
+
+  &.active {
+    z-index: 1;
+  }
+  .btn-prev,
+  .btn-next{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    opacity: .5;
+    &:hover{
+      opacity: 1;
+    }
+  }
+  .btn-prev{
+    left: auto;
+    right: 10px;
+  }
+  .text-holder{
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    overflow: hidden;
+    color: #fff;
+    a{
+      color: #fff;
+    }
+  }
+  h1{
+    color: #fff;
+  }
+}
