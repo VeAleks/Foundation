@@ -34,25 +34,182 @@ article, aside, details, figcaption, figure, footer, header, main, nav, section,
 }
 
 #header{
-  overflow: hidden;
+  padding: 18px 0 14px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: $white;
+  border-bottom: 1px solid $black;
+  @extend %clearfix;
+  @include media(">=desktop") {
+    border: none;
+    position: relative;
+    padding-bottom: 20px;
+  }
+  
   ul{
     @extend %listreset;
     list-style: none;
   }
-}
 
-#nav{
-  ul{
-    @extend %clearfix;
-    @extend %listreset;
+  .logo{
+    float: left;
+    width: 120px;
+    @include media(">=phone") {
+      width: 180px;
+    }
+    @include media(">=desktop") {
+      width: 191px;
+    }
+  }
+
+  .language-list{
+    float: right;
+    padding-top: 16px;
+    @include media(">=desktop") {
+      position: absolute;
+      top: -4px;
+      right: 12px;
+      padding-top: 0;
+    }
 
     li{
       float: left;
+      margin: 0 0 0 5px;
+    }
+  }
+}
+#main{
+  padding: 77px 0 0;
+  @include media(">=phone") {
+    padding-top: 92px;
+  }
+  @include media(">=desktop") {
+    padding: 0;
+  }
+}
+.nav-opener{
+  @include size(40px, 32px);
+  float: right;
+  margin-top: 12px;
+  background: $red;
+  position: relative;
+  margin-left: 20px;
+  @include media(">=desktop") {
+    display: none;
+  }
+  
+  span,
+  &:before,
+  &:after{
+    @include size(21px, 2px);
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 50%;
+    margin-top: -1px;
+    background: $white;
+    transition: all 0.3s linear;
+
+  }
+
+  &:before,
+  &:after{
+    content: '';
+    top: 10px;
+
+    .nav-active &{
+      transform: rotate(-45deg);
+      top: 16px;
+    }
+  }
+
+  &:after{
+    top: 22px;
+
+    .nav-active &{
+      top: 16px;
+      transform: rotate(45deg);
+    }
+  }
+  span{
+    .nav-active &{
+      opacity: 0;
+    }
+  }
+}
+
+#nav{
+  position: fixed;
+  top: 76px;
+  left: -100%;
+  right: 100%;
+  width: 100%;
+  bottom: 0;
+  overflow: auto;
+  background: $white;
+  z-index: 10;
+  transition: all 0.3s linear;
+  font-weight: 600;
+  border-top: 1px solid $black;
+  @include media(">=phone") {
+    top: 92px;
+  }
+  @include media(">=desktop") {
+    position: static;
+    width: auto;
+    border: none;
+    padding-top: 32px;
+  }
+
+  .nav-active &{
+    left: 0;
+    right: 0;
+    float: right;
+  }
+
+  ul{
+    @extend %clearfix;
+    @include media(">=desktop") {
+      float: right;
+    }
+
+    li{
+      border-bottom: 1px solid #000;
+      @include media(">=desktop") {
+        float: left;
+        border: none;
+      }
+    }
+    
+    .active{
+
+      a{
+        background: $red;
+        color: $white;
+      }
     }
 
     a{
       display: block;
-      padding: 8px 10px;
+      padding: 8px 14px;
+      color: $black;
+      @include media(">=desktop") {
+        padding: 7px 9px;
+        transition: all 0.3s linear;
+      }
+      @include media(">=widescreen") {
+        padding: 7px 14px;
+      }
+
+      &:hover{
+        @include media(">=desktop") {
+          background: $red;
+          color: $white;
+        }
+      }
     }
   }
 }
@@ -69,45 +226,101 @@ article, aside, details, figcaption, figure, footer, header, main, nav, section,
     width: 99999px;
     float: left;
     img{
-      @include size(100%, auto);
+      height: 300px;
+      width: auto;
+      max-width: none;
+      position: relative;
+      transform: translateX(-50%);
+      left: 50%;
+      @include media(">=tablet") {
+        height: 482px;
+      }
     //  @include size(100%, auto);
     }
   }
 
   .slide {
     float: left;
+    &.active {
+      z-index: 1;
+    }
   }
 
-  &.active {
-    z-index: 1;
-  }
   .btn-prev,
   .btn-next{
     position: absolute;
     top: 50%;
-    left: 10px;
+    left: 4px;
     opacity: .5;
+    z-index: 3;
+    @include media(">=phone") {
+      left: 10px;
+    }
     &:hover{
       opacity: 1;
     }
   }
-  .btn-prev{
+
+  .btn-next{
     left: auto;
-    right: 10px;
-  }
-  .text-holder{
-    position: absolute;
-    top: 10px;
-    left: 0;
-    right: 0;
-    bottom: 10px;
-    overflow: hidden;
-    color: #fff;
-    a{
-      color: #fff;
+    right: 4px;
+     @include media(">=phone") {
+      left: auto;
+      right: 10px;
     }
   }
-  h1{
+
+  .text-holder{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
     color: #fff;
+    overflow: hidden;
+
+    h1{
+      color: #fff;
+      font-size: 1.538rem;
+      font-family:$font-family-serif;
+      margin: 0 0 4px;
+    }
+    .divider{
+      background: $white;
+      width: 98px;
+      height: 1px;
+      margin: 0 auto 3px;
+      @include media(">=desktop") {
+        width: 205px;
+      }
+    }
+    .note{
+      font-size: 0.923rem;
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .big-text{
+      line-height: 1;
+      font-size: 2.462rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 5px;
+    }
+    a{
+      color: #fff;
+      transition: all 0.3s linear;
+      &:hover{
+        color: #ccc;
+      }
+    }
+    .shop{
+      font-family:$font-family-serif;
+      font-size: 1.538rem;
+      display: inline-block;
+      vertical-align: top;
+      margin-top: -3px;
+    }
   }
 }
